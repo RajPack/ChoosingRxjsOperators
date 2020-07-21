@@ -3,10 +3,10 @@
 </nav>
 
 <div class="container-fluid app-container d-flex">
-  <div class="side-nav bg-white rounded list-group">
+  <div class="side-nav bg-white list-group">
       <a
           *ngFor="let item of lessons"
-          class="bg-white list-group-item list-group-item-action"
+          class="bg-white list-group-item list-group-item-action" [ngClass]="{active: item.active}"
           (click)="navigate(item.name)"
       >
           <div class="text-primary">Exercise {{ item.name }}</div>

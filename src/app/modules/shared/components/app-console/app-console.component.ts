@@ -1,21 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { interval } from 'rxjs';
+import { LoggerService } from '../../services/logger.service';
 
 @Component({
     selector: 'app-app-console',
     templateUrl: './app-console.component.html',
     styleUrls: ['./app-console.component.scss']
 })
-export class AppConsoleComponent implements OnInit {
-    // tslint:disable-next-line: no-use-before-declare
-    currentLogs: Log[] = testLogs;
-    constructor() {
-        interval(300).subscribe(val => this.addLog(val));
+export class AppConsoleComponent {
+    currentLogs: Log[] = [];
+    constructor(private logger: LoggerService) {
+       this.logger.logs$.subscribe(item => this.addLog(item.text, item.level));
+       this.logger.clearSignal$.subscribe(() => this.clearLogs());
     }
+
     clearLogs() {
         this.currentLogs = [];
     }
-    ngOnInit() {}
+
     addLog(obj, level = 'info') {
         if (typeof obj === 'object') {
             const text = JSON.stringify(obj, null, 1);
@@ -30,15 +32,3 @@ interface Log {
     text: string;
     level: 'info' | 'warn' | 'error' | 'debug' | string;
 }
-
-const testLogs = [
-    { text: 'Log one to many', level: 'info' },
-    {
-        text:
-            'a very long message and that needs to be trimmed or given a wrap for full visibility and understanding for the user',
-        level: 'info'
-    },
-    { text: 'This is a warning message', level: 'warn' },
-    { text: 'This is an error message', level: 'error' },
-    { text: 'This is a debug message', level: 'debug' }
-];

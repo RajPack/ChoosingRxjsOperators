@@ -1,38 +1,46 @@
 .navbar {
-    background: #17a2b8 !important;
-    .navbar-brand {
-        color: white;
-    }
+  background: #17a2b8 !important;
+  .navbar-brand {
+    color: white;
+  }
 }
 .app-container {
-    height: calc(100vh - 56px);
-    padding: 0px;
+  height: calc(100vh - 56px);
+  padding: 0px;
 
-    .side-nav {
-        flex-grow: 1;
-        border-right: 1px solid #ebebeb;
-        background: white;
-        a {
-            border: none;
-            border-bottom: 1px solid #ebebeb;
+  .side-nav {
+    flex-grow: 1;
+    border-right: 1px solid #ebebeb;
+    background: white;
+    border-radius: 0px !important;
+    a {
+      border: none;
+      border-bottom: 1px solid #ebebeb;
+    }
+    .list-group-item-action {
+      cursor: pointer;
+      &:hover {
+        background: #f8f9fa !important;
+      }
+      .text-secondary {
+        font-size: 0.7em;
+      }
+      &.active {
+        background: var(--gray) !important;
+        .text-secondary,
+        .text-primary {
+          color: white !important;
         }
-        .list-group-item-action {
-            cursor: pointer;
-            &:hover {
-                background: #f8f9fa !important;
-            }
-            .text-secondary {
-                font-size: 0.7em;
-            }
-        }
+      }
     }
-    .workbench {
-        flex-grow: 6;
-        border-right: 1px solid #ebebeb;
-        padding: 20px;
-    }
-    .app-console {
-        min-width: 300px;
-        width: 500px;
-    }
+  }
+  .workbench {
+    flex-grow: 6;
+    border-right: 1px solid #ebebeb;
+    padding: 20px;
+  }
+  .app-console {
+    min-width: 300px;
+    width: 500px;
+  }
 }
