@@ -1,0 +1,31 @@
+.app-console {
+    height: 100%;
+    padding: 20px 10px;
+    position: relative;
+    box-sizing: border-box;
+    .clear-btn {
+        width: 150px;
+        position: absolute;
+        top: 10px;
+        left: calc(100% - 180px);
+    }
+    .log-container {
+        padding: 30px 10px;
+        box-sizing: border-box;
+        height: 100%;
+        overflow-y: auto;
+        font-size: 14px;
+        .console-text::before {
+            content: '>_';
+            color: #f8f9fa;
+        }
+        .console-text {
+            &.warn {
+                color: #ffc107 !important;
+            }
+            &.error {
+                color: #dc3545 !important;
+            }
+        }
+    }
+}

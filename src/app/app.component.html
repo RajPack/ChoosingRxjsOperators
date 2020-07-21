@@ -1,0 +1,22 @@
+<nav class="navbar navbar-light">
+    <span class="navbar-brand mb-0 h1">Choosing Rxjs operators</span>
+</nav>
+
+<div class="container-fluid app-container d-flex">
+    <div class="side-nav bg-white rounded list-group">
+        <a
+            *ngFor="let item of lessons"
+            class="bg-white list-group-item list-group-item-action"
+            (click)="navigate(item.name)"
+        >
+            <div class="text-primary">Exercise {{ item.name }}</div>
+            <div class="text-secondary">{{ item.desc }}</div>
+        </a>
+    </div>
+    <div class="workbench bg-light">
+        test2
+    </div>
+    <div class="app-console">
+        <app-app-console></app-app-console>
+    </div>
+</div>

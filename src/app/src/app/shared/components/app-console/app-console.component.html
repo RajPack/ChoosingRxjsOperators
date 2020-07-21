@@ -1,0 +1,14 @@
+<div class="app-console bg-dark">
+    <button class="btn btn-outline-danger  clear-btn" (click)="clearLogs()">
+        Clear console
+    </button>
+    <div class="log-container">
+        <div
+            *ngFor="let log of currentLogs"
+            class="console-text text-monospace text-success"
+            [ngClass]="log.level"
+        >
+            {{ log.text }}
+        </div>
+    </div>
+</div>
