@@ -5,14 +5,16 @@
     <mat-card-content>
       <mat-form-field class="example-full-width">
         <input
+          #search
           type="text"
-          placeholder="Pick a language"
+          placeholder="Search a language with keywords"
           aria-label="Number"
           matInput
           [formControl]="langField"
           [matAutocomplete]="auto"
+          (input) ="searchKey$.next(search.value)"
         />
-        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="searchService.chosenLang$.next($event.option.value)">
           <mat-option *ngFor="let option of langs$ | async" [value]="option">
             {{ option }}
           </mat-option>

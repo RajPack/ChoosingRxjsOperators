@@ -11,7 +11,7 @@ export class AppComponent {
     this.router.events.subscribe(this.listenToActivatedRoute.bind(this));
   }
   lessons = [
-    { name: 'one', desc: 'test', active: false },
+    { name: 'one', desc: 'Search using keywords', active: false },
     { name: 'two', desc: '', active: false },
     { name: 'three', desc: '', active: false },
     { name: 'four', desc: '', active: false },
