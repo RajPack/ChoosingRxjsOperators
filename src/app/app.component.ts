@@ -12,10 +12,10 @@ export class AppComponent {
   }
   lessons = [
     { name: 'one', desc: 'Search using keywords', active: false },
-    { name: 'two', desc: '', active: false },
-    { name: 'three', desc: '', active: false },
-    { name: 'four', desc: '', active: false },
-    { name: 'five', desc: '', active: false },
+    { name: 'two', desc: 'Multiple Filters', active: false },
+    { name: 'three', desc: 'Pre-loading your data', active: false },
+    { name: 'four', desc: 'Handling backend', active: false },
+    { name: 'five', desc: 'Watching a DOM event', active: false },
   ];
 
   navigate(lessonName) {

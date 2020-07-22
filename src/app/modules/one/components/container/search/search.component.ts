@@ -7,6 +7,7 @@ import {
   mergeMap,
   debounceTime,
   filter,
+  distinctUntilChanged,
 } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
 import { LoggerService } from 'src/app/modules/shared/services/logger.service';
@@ -19,7 +20,6 @@ import { SearchService } from '../../../services/search.service';
 })
 export class SearchComponent implements OnInit {
   searchKeySubscription: Subscription;
-  lastSearchKey;
   searchKey$ = new Subject();
   langField = new FormControl();
   langs$ = new BehaviorSubject<any>([]); // empty languages array - initial state
@@ -37,11 +37,11 @@ export class SearchComponent implements OnInit {
     this.searchKeySubscription = this.searchKey$
       .pipe(
         debounceTime(400),
-        filter((val) => !!val && this.lastSearchKey != val),
+        filter((val) => !!val),
+        distinctUntilChanged(),
         tap((val) => {
           this.logger.log('Calling Backend API with Search Key: ', 'info');
           this.logger.log(val, 'info');
-          this.lastSearchKey = val;
         }),
         switchMap((val) => this.searchService.searchLang(val)),
         tap((langs) => {

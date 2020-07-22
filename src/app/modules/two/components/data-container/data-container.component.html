@@ -1,0 +1,16 @@
+<mat-card>
+    <mat-card-title>Reservation status</mat-card-title>
+    <mat-card-subtitle></mat-card-subtitle>
+  <mat-card-content>
+    <div *ngIf="reservationService.status && reservationService.status !== 'inProgress'; else noStatus">Your parking reservation: <span class="text-info">{{reservationService.status}}</span></div>
+    <ng-template #noStatus>
+		<ng-container *ngIf="reservationService.status==='inProgress'; else initial">
+			<mat-progress-bar mode="indeterminate"></mat-progress-bar>
+		</ng-container>
+		<ng-template #initial>
+			<div>Please select vehicle type, start date and end date to check for reservation.</div>
+		</ng-template>
+    </ng-template>
+    
+  </mat-card-content>
+</mat-card>
