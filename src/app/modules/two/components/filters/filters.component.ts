@@ -32,6 +32,7 @@ export class FiltersComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.reservationService.status = undefined;
     this.listenToFilters();
   }
 

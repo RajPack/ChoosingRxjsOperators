@@ -1,1 +1,22 @@
-<p>four container works!</p>
+<div class="notes bg-secondary">
+  Indicate user about the delayed and failing backend responses
+</div>
+
+<mat-card>
+  <mat-card-title>Simulate delayed and failing backend responses</mat-card-title
+  >
+  <button class="btn btn-secondary" (click)="triggerFetchData()">Fetch data from Backend</button>
+  <mat-card-content> </mat-card-content>
+</mat-card>
+<br>
+<mat-card>
+  <mat-card-title>Data</mat-card-title>
+  <br>
+  <ng-container *ngIf="data==='loading'; else dat">
+	<mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</ng-container>
+
+<ng-template #dat>
+	<mat-card-content>{{data}}</mat-card-content>
+</ng-template>
+</mat-card>
