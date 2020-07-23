@@ -8,9 +8,39 @@
   <mat-card-subtitle
     >The route `/three` should load two data sets</mat-card-subtitle
   >
-  <mat-card-content> </mat-card-content>
+  <mat-card-content>
+    <div class="content">
+      <div class="topics">
+        <ng-container
+          *ngIf="topics !== null && topics !== 'loading'; else dataSet1Ghost"
+        >
+          <div
+            class="topic"
+            *ngFor="let topic of topics"
+            (click)="fetchTopicDetail(topic)"
+          >
+            <a>{{ topic }}</a>
+          </div>
+        </ng-container>
+      </div>
+      <div class="topic-detail">
+        <ng-container
+          *ngIf="
+            topicDetail !== null && topicDetail !== 'loading';
+            else dataSet2Ghost
+          "
+        >
+          {{ topicDetail }}
+        </ng-container>
+      </div>
+    </div>
+  </mat-card-content>
 </mat-card>
 
-<ng-template #dataSet1Ghost> </ng-template>
+<ng-template #dataSet1Ghost>
+  <div class="ghost-topics"></div>
+</ng-template>
 
-<ng-template #dataSet2Ghost> </ng-template>
+<ng-template #dataSet2Ghost>
+  <div class="ghost-detail"></div>
+</ng-template>
