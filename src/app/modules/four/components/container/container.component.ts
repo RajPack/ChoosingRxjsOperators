@@ -21,20 +21,5 @@ export class ContainerComponent implements OnInit {
   }
 
   triggerFetchData() {
-    const timer$ = timer(5000).pipe(mapTo('takingTooLong'));
-    const resp$ = this.dataService.fetchData(6000, true);
-
-    merge(timer$, resp$)
-      .pipe(
-        catchError(e => {
-          return of({ error: true, message: e.message });
-        }),
-        tap(val => {
-          this.logger.log('response from Backend: ', 'warn');
-          this.logger.log(val, 'warn');
-        }),
-        takeWhile(val => val === 'loading' || val === 'takingTooLong', true)
-      )
-      .subscribe(data => (this.data = data));
   }
 }

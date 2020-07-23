@@ -5,7 +5,7 @@ import {
   QueryList,
   ElementRef,
   AfterViewInit,
-  OnDestroy
+  OnDestroy,
 } from '@angular/core';
 import { LoggerService } from 'src/app/modules/shared/services/logger.service';
 import {
@@ -14,7 +14,7 @@ import {
   fromEvent,
   BehaviorSubject,
   Subscription,
-  asyncScheduler
+  asyncScheduler,
 } from 'rxjs';
 import {
   toArray,
@@ -25,13 +25,13 @@ import {
   filter,
   debounceTime,
   take,
-  throttleTime
+  throttleTime,
 } from 'rxjs/operators';
 
 @Component({
   selector: 'app-container',
   templateUrl: './container.component.html',
-  styleUrls: ['./container.component.scss']
+  styleUrls: ['./container.component.scss'],
 })
 export class ContainerComponent implements OnInit, AfterViewInit, OnDestroy {
   // generating panel data
@@ -57,39 +57,17 @@ export class ContainerComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit() {
-    this.panelElems.forEach(elemRef =>
+    this.panelElems.forEach((elemRef) =>
       this.bindScrollEvent(elemRef.nativeElement)
     );
   }
 
   bindScrollEvent(elem) {
-    fromEvent(elem, 'scroll')
-      .pipe(
-        throttleTime(40, asyncScheduler, { leading: true, trailing: true }),
-        pluck('target'),
-        switchMap((target: Element) =>
-          this.elementInScroll$.pipe(
-            map(currentElem => ({ currentElem, target })),
-            take(1)
-          )
-        ),
-        filter(
-          obj => obj.currentElem === obj.target || obj.currentElem === null
-        ),
-        tap(obj => this.elementInScroll$.next(obj.target)),
-        map(obj => ({ elem: obj.target, top: obj.target.scrollTop }))
-      )
-      .subscribe(evt => {
-        this.syncScroll(evt.elem, evt.top);
-        this.logger.log(
-          `${evt.elem.classList} scrolling at ${evt.top}`,
-          'info'
-        );
-      });
+
   }
 
   syncScroll(elem, top) {
-    this.panelElems.forEach(elemRef => {
+    this.panelElems.forEach((elemRef) => {
       if (elemRef.nativeElement !== elem) {
         elemRef.nativeElement.scrollTop = top;
       }

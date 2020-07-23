@@ -37,31 +37,6 @@ export class FiltersComponent implements OnInit {
   }
 
   listenToFilters() {
-    const vehicleType$ = this.filters.vehicleType.onChange$.pipe();
-    const startDate$ = this.filters.startDate.onChange$.pipe(
-      map((d: Date) => d.toISOString())
-    );
-    const endDate$ = this.filters.endDate.onChange$.pipe(
-      map((d: Date) => d.toISOString())
-    );
-
-    combineLatest(vehicleType$, startDate$, endDate$)
-      .pipe(
-        map((dataArr) => ({
-          type: dataArr[0],
-          start: dataArr[1],
-          end: dataArr[2],
-        })),
-        tap(val => {
-          this.logger.log("Calling backend with filters:", 'info');
-          this.logger.log(val, 'info');
-        }),
-        switchMap(filters => this.reservationService.reserveParking(filters)),
-        tap(resp => {
-          this.logger.log("Received from backend:", 'warn');
-          this.logger.log(resp, 'warn');
-        })
-      )
-      .subscribe();
+  
   }
 }

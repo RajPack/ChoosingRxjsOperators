@@ -34,25 +34,10 @@ export class SearchComponent implements OnInit {
   }
 
   listenToSearchKey() {
-    this.searchKeySubscription = this.searchKey$
-      .pipe(
-        debounceTime(400),
-        filter((val) => !!val),
-        distinctUntilChanged(),
-        tap((val) => {
-          this.logger.log('Calling Backend API with Search Key: ', 'info');
-          this.logger.log(val, 'info');
-        }),
-        switchMap((val) => this.searchService.searchLang(val)),
-        tap((langs) => {
-          this.logger.log('Backend response received: ', 'warn');
-          this.logger.log(langs, 'warn');
-        })
-      )
-      .subscribe((langs) => this.langs$.next(langs));
+
   }
 
   ngOnDestroy() {
-    this.searchKeySubscription.unsubscribe();
+    // this.searchKeySubscription.unsubscribe();
   }
 }

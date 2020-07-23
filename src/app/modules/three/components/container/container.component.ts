@@ -26,22 +26,11 @@ export class ContainerComponent implements OnInit {
       res.data$.subscribe(data => {
         this.logger.log('Received value: ', 'warn');
         this.logger.log(data, 'warn');
-        this.topics = data.topics;
-        this.topicDetail = data.detail;
       });
     });
   }
 
   fetchTopicDetail(topic) {
-    this.dataService
-      .fetchTopicData(topic)
-      .pipe(
-        startWith('loading'),
-        tap(val => {
-          this.logger.log('Received value: ', 'warn');
-          this.logger.log(val, 'warn');
-        })
-      )
-      .subscribe(data => (this.topicDetail = data));
+
   }
 }
