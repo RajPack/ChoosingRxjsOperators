@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoggerService } from 'src/app/modules/shared/services/logger.service';
 import { ActivatedRoute } from '@angular/router';
 import { DataService } from '../../services/data.service';
-import { startWith } from 'rxjs/operators';
+import { startWith, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-container',
@@ -24,6 +24,8 @@ export class ContainerComponent implements OnInit {
 
     this.route.data.subscribe(res => {
       res.data$.subscribe(data => {
+        this.logger.log('Received value: ', 'warn');
+        this.logger.log(data, 'warn');
         this.topics = data.topics;
         this.topicDetail = data.detail;
       });
@@ -33,7 +35,13 @@ export class ContainerComponent implements OnInit {
   fetchTopicDetail(topic) {
     this.dataService
       .fetchTopicData(topic)
-      .pipe(startWith('loading'))
+      .pipe(
+        startWith('loading'),
+        tap(val => {
+          this.logger.log('Received value: ', 'warn');
+          this.logger.log(val, 'warn');
+        })
+      )
       .subscribe(data => (this.topicDetail = data));
   }
 }
