@@ -3,20 +3,55 @@
 </div>
 
 <mat-card>
-  <mat-card-title>Simulate delayed and failing backend responses</mat-card-title
+  <mat-card-title
+    >Simulate delayed and failing backend responses</mat-card-title
   >
-  <button class="btn btn-secondary" (click)="triggerFetchData()">Fetch data from Backend</button>
+  <button class="btn btn-secondary" (click)="triggerFetchData()">
+    Fetch data from Backend
+  </button>
   <mat-card-content> </mat-card-content>
 </mat-card>
-<br>
+<br />
 <mat-card>
   <mat-card-title>Data</mat-card-title>
-  <br>
-  <ng-container *ngIf="data==='loading'; else dat">
-	<mat-progress-bar mode="indeterminate"></mat-progress-bar>
-</ng-container>
-
-<ng-template #dat>
-	<mat-card-content>{{data}}</mat-card-content>
-</ng-template>
+  <br />
+  <ng-container
+    *ngTemplateOutlet="
+      data === 'loading'
+        ? loading
+        : data === 'takingTooLong'
+        ? tooLong
+        : data && data.error
+        ? error
+        : realData
+    "
+  >
+  </ng-container>
 </mat-card>
+
+<ng-template #loading>
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</ng-template>
+
+<ng-template #tooLong>
+  <div class="emoji-text">Its taking unusually a long time</div>
+  <div class="subtle-text">
+    Sorry, please wait a little longer.
+  </div>
+</ng-template>
+
+<ng-template #realData>
+  <mat-card-content
+    ><h2>{{ data }}</h2></mat-card-content
+  >
+</ng-template>
+
+<ng-template #error>
+  <mat-card-content>
+    <div class="emoji">:-(</div>
+    <div class="emoji-text">something went wrong</div>
+    <div class="subtle-text">
+      Sorry, we can't get the information right now. Please try again later.
+    </div>
+  </mat-card-content>
+</ng-template>

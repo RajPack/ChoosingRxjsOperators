@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { LoggerService } from './logger.service';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class BackendService {
   db: any = {};
@@ -22,17 +22,20 @@ export class BackendService {
   }
 
   setResponse(obj) {
-    Object.keys(obj).forEach((k) => (this.db[k] = obj[k]));
+    Object.keys(obj).forEach(k => (this.db[k] = obj[k]));
   }
 
   _evaluateResponse(key, params) {
-    const resp$ = new Observable((obs) => {
+    const resp$ = new Observable(obs => {
       setTimeout(() => {
         let val = this.db[key];
         if (val instanceof Function) {
-          val = val(params);
+          try {
+            val = val(params);
+          } catch (e) {
+            obs.error(e);
+          }
         }
-        
         obs.next(val);
         obs.complete();
       }, this.delay);

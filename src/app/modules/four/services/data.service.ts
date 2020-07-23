@@ -12,15 +12,20 @@ export class DataService {
   }
   setMockDBResponses() {
     this.backend.setResponse({
-      randomData: 'This statement is the backend response!!',
+      randomData: failRequested => {
+        if (failRequested) {
+          throw new Error('Random Backend error');
+        }
+        return 'This statement is the backend response!!';
+      }
     });
   }
 
-  fetchData(additionalDelay = 400) {
+  fetchData(additionalDelay = 400, fail = false) {
     this.data$ = new BehaviorSubject('loading'); // reset data when fetch call in progress
 
     setTimeout(() => {
-      this.backend.Get('randomData', '').subscribe(
+      this.backend.Get('randomData', fail).subscribe(
         data => this.data$.next(data),
         err => this.data$.error(err),
         () => this.data$.complete()
