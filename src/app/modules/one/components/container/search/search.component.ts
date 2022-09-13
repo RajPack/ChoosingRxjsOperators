@@ -9,7 +9,7 @@ import {
   filter,
   distinctUntilChanged,
 } from 'rxjs/operators';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { LoggerService } from 'src/app/modules/shared/services/logger.service';
 import { SearchService } from '../../../services/search.service';
 
@@ -21,7 +21,7 @@ import { SearchService } from '../../../services/search.service';
 export class SearchComponent implements OnInit {
   searchKeySubscription: Subscription;
   searchKey$ = new Subject();
-  langField = new FormControl();
+  langField = new UntypedFormControl();
   langs$ = new BehaviorSubject<any>([]); // empty languages array - initial state
 
   constructor(
