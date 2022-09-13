@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { Subject, combineLatest, zip } from 'rxjs';
 import { LoggerService } from 'src/app/modules/shared/services/logger.service';
 import { ParkingReservationService } from '../../services/parking-reservation.service';
@@ -17,11 +17,11 @@ export class FiltersComponent implements OnInit {
       onChange$: new Subject(),
     },
     startDate: {
-      formControl: new FormControl(),
+      formControl: new UntypedFormControl(),
       onChange$: new Subject(),
     },
     endDate: {
-      formControl: new FormControl(),
+      formControl: new UntypedFormControl(),
       onChange$: new Subject(),
     },
   };
